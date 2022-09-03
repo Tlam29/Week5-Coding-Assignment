@@ -3,6 +3,9 @@ class Device{
         this.name = name;
         this.year = year;
     }
+    describe(){
+        return `$(this.name) made its debut in $(this.year).`
+    }
 }
 class Brand {
     constructor(name){
@@ -19,7 +22,7 @@ class Brand {
     }
 
     describe(){
-        return `${this.name} is one of ${this.songs.length} songs.`;
+        return `${this.name} is one of ${this.device.length} devices.`;
     }
 }
 class Menu{
@@ -63,4 +66,61 @@ class Menu{
         ${brandInfo}
         `);
     }
+    displayBrand(){
+        let brandString = '';
+        for(let i = 0; i < this.brands.length; i++){
+            brandString += i + ')' + this.brands[i].name + '\n';
+        }
+        alert(brandString);
+    }
+    displayDevices(){
+        let deviceString = '';
+        for(let i = 0; i < this.devices; i++){
+            deviceString += i = ')' + this.device[i].name + '\n';
+        }
+        alert(deviceString);
+    }
+    createBrand(){
+        let name = prompt('Enter name of the brand:');
+        this.brands.push(new Brand(name));
+    }
+    deleteBrand(){
+        let index = prompt('Enter the index of the Brand that you want to delete:');
+        if (index > -1 && index < this.brands.length){
+            this.brands.splice(index, 1);
+        }
+    }
+    viewBrand(){
+        let index = prompt('Enter the index of which Brand you would like to see:');
+        if (index > -1 && index < this.brands.length){
+            this.selectedBrands = this.brands[index];
+            let description = "Brand Name: " + this.selectedBrands.name + '\n';
+        
+            for (let i = 0; i < this.selectedBrands.device.length; i++){
+                description += i + ')' + this.selectedBrands.device[i].name + '-' + this.selectedBrands.device[i].device + '\n';
+            }
+        let selection = this.showBrandMenuOptions(description);
+        switch (selection){
+            case '1':
+                this.createBrand();
+                break;
+            case '2':
+                this.deleteBrand();
+                break;
+        }
+      } 
+    }
+    createDevice(){
+        let name = prompt('Enter name of the new Device:');
+        let year = prompt('Enter the year the device came out:')
+            this.selectedBrands.device.push(new Device(name, year));
+    }
+    deleteDevice(){
+        let index = prompt('Enter the index of the Device you wish to delete:');
+        if (index > -1 && index < this.selectedBrands.device.length){
+                this.selectedBrands.device.splice(index, 1);
+         }
+        }
 }
+let menu = new Menu();
+menu.start();
